@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <input [(ngModel)]="enteredText" type="text" class="form-control" name="fname" placeholder="Default input">&nbsp;
+      <button type="button" class="btn btn-secondary" (click)='postLibro()'>Agregar</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-secondary" (click)='filtro(nicolas)'>probar</button>&nbsp;&nbsp;
+      
+      <select (change)="filtro($event.target.value)" name="select">
+            
+          
+                <option  *ngFor="let author of authorList; index as i;">{{author}}</option> 
+          
+        
+          </select>
+
+    </form>
+  </nav>
+
+  <app-tabla [parentData]="libros"></app-tabla>
+

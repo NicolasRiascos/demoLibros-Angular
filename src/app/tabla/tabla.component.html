@@ -1,0 +1,22 @@
+<table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Autor</th>
+            <th scope="col">fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let libro of libros; index as i;"> 
+            <th scope="row">{{i+1}}</th>
+            <td>{{libro.autor}}</td>
+            <td>{{libro.nombre}}</td>
+            <td>{{libro.fecha}}</td>
+          </tr>
+         
+        </tbody>
+      </table>
+    
+      <button type="button" class="btn btn-secondary" (click)='showLibros()'>Actualizar</button>&nbsp;&nbsp;
+      

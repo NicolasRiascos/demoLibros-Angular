@@ -9,10 +9,11 @@ import { ClienteService } from '../cliente.service';
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent implements OnInit {
+  // tslint:disable-next-line: no-input-rename
   @Input('parentData') public libros;
 
 
-  //public libros: Array<Libro>;
+  // public libros: Array<Libro>;
   constructor(private clienteService: ClienteService) {
     this.showLibros();
   }
@@ -28,7 +29,7 @@ export class TablaComponent implements OnInit {
   filterBooks(autor: string) {
     const librosAux = [];
     this.libros.forEach(libro => {
-      if(libro.autor === autor){
+      if (libro.autor === autor) {
         librosAux.push(libro);
       }
     });

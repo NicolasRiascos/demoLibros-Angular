@@ -11,11 +11,11 @@ import { ClienteService } from '../cliente.service';
 export class BarraComponent implements OnInit {
 
   public enteredText: string;
-  public authorList: Set<string>;
+  public authorList: Array<string>;
   public libros: any;
 
   constructor(private clienteService: ClienteService) {
-    this.authorList = new Set();
+    this.authorList = new Array();
   }
 
   postLibro() {
@@ -27,20 +27,20 @@ export class BarraComponent implements OnInit {
     } );
   }
 
-
+// Llama la info del api, compara cada elemeno con el autor ingresado y genera un nuevo listado
   filtro(autor: string) {
     this.clienteService.getLibro()
       // clone the data object, using its known Config shape
       .subscribe((data: {}) => {
         console.log(data);
         this.libros = data;
-        this.getAutores();
+        this.getAutores(); // actualiza lista de autores
         const librosAux = [];
         console.log(autor);
-        if (autor === 'Any' ) {} else {
+        if (autor === 'Seleccionar...' ) {console.log('Seleccionar...'); } else {
         this.libros.forEach(libro => {
           console.log(libro.autor);
-          if ((libro.autor) === String(autor)) {
+          if ((libro.autor.trim()) === String(autor)) { // tirm() elimina los espacios al comienzo y al final
             console.log('TRUE');
             librosAux.push(libro);
           }
@@ -54,19 +54,22 @@ export class BarraComponent implements OnInit {
   }
 
 
+// obtiene una lista de auotres no repetidos
   getAutores() {
     this.libros.forEach(libro => {
-      console.log(this.authorList.has(libro.autor));
-      if (!(this.authorList.has(libro.autor))) {
-        this.authorList.add(libro.autor);
+      console.log(this.authorList.includes( libro.autor ));
+      if (!(this.authorList.includes(libro.autor))) {
+        this.authorList.push(libro.autor.trim());
       }
     });
+    this.authorList.sort();
     console.log(this.authorList);
   }
 
 
 
   ngOnInit() {
+    // this.authorList.push('Seleccionar...');
     this.clienteService.getLibro().subscribe((data: {}) => {
       console.log(data);
       this.libros = data;
